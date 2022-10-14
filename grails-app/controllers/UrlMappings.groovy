@@ -7,7 +7,8 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
+        name landing: "/"(controller: 'login', action: 'auth')
+        // "/"(view:"/index")
         "500"(view:'/error')
         "404"(view:'/notFound')
     }
