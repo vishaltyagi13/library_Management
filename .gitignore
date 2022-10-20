@@ -9,3 +9,15 @@ build/
 .project
 .settings
 .classpath
+.asscache
+hs_err*
+out/*
+src/main/webapp/*
+!src/main/webapp/logo/
+!src/main/webapp/857d1bfe07da45f8849e1070eeca0cf3-lm-small-line-logo.png
+!src/main/webapp/765-default-avatar.png
+static_files
+bin/
+classes/
+.gitlab
+.gitlab/*
