@@ -17,8 +17,10 @@
     <a href="#default" class="logo">LibraryManagement</a>
 
     <div class="header-right">
-        <a class="active" href="#" onclick="openModal()">New Student</a>
-        <a href="#New Book">New Book</a>
+        <a class="active" href="#" data-toggle="modal"
+           data-target="#modal-studentRecord">New Student</a>
+        <a href="#" data-toggle="modal"
+        data-target="#modal-bookRecord">New Book</a>
         <a href="#Detail">Detail</a>
         <a href="#Issue Book">Issue Book</a>
         <a href="#Return Book">Return Book</a>
@@ -26,15 +28,47 @@
     </div>
 </div>
 <g:render template="/libraryManagementSystem/createStudentModal"/>
+<g:render template="/libraryManagementSystem/createBookModal"/>
+
 
 <div id="mySidenav" class="sidenav">
-    <a href="#">studentRecord</a>
-    <a href="#">bookRecords</a>
+    <a href="${createLink(controller: 'library', action: 'fetchStudentDetails')}" onclick="studentRecords()">students</a>
+    <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords">Books</a>
 </div>
 </body>
 </html>
 <script>
-    function openModal() {
-        $('#modal-studentRecord').show();
+
+    function studentRecords(){
+        $.ajax({
+            url:"${createLink(controller: "library",action: "fetchStudentDetails")}",
+            method:"POST",
+            data:{},
+            success:function (data){
+                if (data.code==200){
+                    $("#myTable").html(data.template);
+                }
+                else{
+                    $.notify("Error","error");
+                }
+            }
+        })
+    }
+
+    function BookRecords(){
+        $.ajax({
+            url:"${createLink(controller: "library",action: "fetchBookDetails")}",
+            method:"POST",
+            data:{},
+            success:function (data){
+                if (data.code==200){
+                    $("#myBook").html(data.template);
+                }
+                else{
+                    $.notify("Error","error");
+                }
+            }
+        })
     }
 </script>
+

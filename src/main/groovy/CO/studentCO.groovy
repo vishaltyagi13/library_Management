@@ -4,6 +4,7 @@ import grails.validation.Validateable
 
 class StudentCO implements Validateable {
 
+    String uuid = UUID.randomUUID()
     Integer rollNo
     String name
     String fatherName
@@ -13,12 +14,12 @@ class StudentCO implements Validateable {
 
     static constraints = {
 
+        uuid nullable: false
         rollNo nullable: false
         name nullable: false
         fatherName nullable: false
         course nullable: false
         stream nullable: false
         address nullable: true
-
     }
 }
