@@ -80,3 +80,9 @@ dependencies {
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion
 }
+bootRun {
+    final Boolean reloadEnabled = Boolean.valueOf(true)
+    if (reloadEnabled) {
+        systemProperty(grails.util.Environment.RELOAD_ENABLED, true)
+    }
+}

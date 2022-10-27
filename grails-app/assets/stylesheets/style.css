@@ -146,5 +146,33 @@ button:hover {
     color: #f1f1f1;
 }
 
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
 
+td, th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 5px;
+}
+
+
+
+
+tr:nth-child(even) {
+    background-color: #f1f1f1;
+
+}
+
+#btn1{
+    background-color: red;
+    color: white;
+}
+
+#btn2{
+    background-color: dodgerblue;
+    color: white;
+}
 

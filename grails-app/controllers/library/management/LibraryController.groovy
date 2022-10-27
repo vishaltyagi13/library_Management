@@ -11,7 +11,6 @@ class LibraryController {
     LibraryService libraryService
 
     def view(){
-
         render view: '/libraryManagementSystem/dashboard'
     }
 
@@ -20,7 +19,7 @@ class LibraryController {
         List<Student> studentList = Student.list()
         result.code=200
         result.status="SUCCESS"
-        render(template: '/libraryManagementSystem/studentRecordTemplate', model: [studentList: studentList])
+        render(view: '/libraryManagementSystem/createUpdateStudentRecord', model: [studentList: studentList])
     }
 
     def createStudentDetails(StudentCO studentCO){
@@ -35,7 +34,6 @@ class LibraryController {
 
     def updateStudentDetails(){
         Map result = [:]
-        println(params)
         StudentCO studentCO = new StudentCO()
         bindData(studentCO, params)
         if (studentCO?.uuid) {
@@ -49,20 +47,18 @@ class LibraryController {
                 result.status="ERROR"
             }
         }
-
         render template: '/libraryManagementSystem/studentRecordTemplate', model: ['studentList': studentCO]
-
         result as  JSON
     }
 
     def deleteStudentDetails(){
-
         Map result=[:]
         println(params)
         if (params.uuid){
             Student student=Student.findByUuid(params.uuid)
             if (student){
                 student.delete(flush:true)
+                println("after delete")
                 result.code=200
                 result.status="SUCCESS"
             }else {
@@ -78,27 +74,48 @@ class LibraryController {
         render(template: '/libraryManagementSystem/bookRecordTemplate', model: ['bookList': bookList])
     }
 
-    def createBookDetails(BookCO bookCO) {
-        Map result = [:]
-        println("")
-        println("")
-        println("")
-        println("")
-        println("")
-        Book book = new Book(bookCO)
-        book.save()
-       // println eachError()
-        result.code = 200
-        result.status = "Saved"
-        render template: '/libraryManagementSystem/bookRecordTemplate', model: ['bookList': book.list()]
+    def createBookDetails(BookCO bookCO){
+        Map result=[:]
+        Book book= new Book(bookCO)
+        book.save(flush:true)
+        result.code=200
+        result.status="Success"
+        render template: '/libraryManagementSystem/bookRecordTemplate',model: ['bookList':book.list()]
         result as JSON
     }
 
-    def updateBookDetails(){
+    def updateBookDetials(){
         Map result=[:]
         BookCO bookCO=new BookCO()
-
+        bindData(bookCO,params)
+        if (bookCO?.uuid){
+            Boolean status = libraryService.updateBook(bookCO)
+            if (status){
+                result.code=200
+                result.message="Upadte Successfully"
+            }else{
+                result.code=302
+                result.status="Record not found"
+            }
+        }
+        render template: '/libraryManagementSystem/bookRecordTemplate',model: ['bookList':bookCO]
     }
 
-
+    def deleteBookDetails(){
+        Map result=[:]
+        println(params)
+        if(params.uuid){
+            Book book = Book.findByUuid(params.uuid)
+            if (book){
+                book.delete(flush: true)
+                result.code=200
+                result.status="Delete"
+            }
+            else{
+                result.code=404
+                result.message="record not found"
+            }
+        }
+        render template: '/libraryManagementSystem/bookRecordTemplate',model: ['bookList':Book.list()]
+    }
 }

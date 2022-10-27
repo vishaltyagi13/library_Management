@@ -3,24 +3,21 @@ package CO
 import grails.validation.Validateable
 
 class BookCO implements Validateable {
-
     String uuid = UUID.randomUUID()
-    Integer bookId
     String bookName
     String publisherName
-    Date publisherYear
     String writterName
-    Integer bookPrice
+    Long year
+    Integer price
 
-
-    static constraints = {
+    static constraints ={
 
         uuid nullable: false
-        bookId nullable: false
         bookName nullable: false
-        publisherName nullable: false
-        publisherYear nullable: false
-        writterName nullable: false
-        bookPrice nullable: false
+        publisherName nullable:false
+        writterName nullable:false
+         year nullable:false
+        price nullable:false
     }
+
 }

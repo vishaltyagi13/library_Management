@@ -92,9 +92,7 @@
 
                 success: function (data) {
                     if (data.code == 200) {
-                        $("#myTable").html(data.template);
-                    } else {
-                        $.notify("Error", "error");
+                        $("#studentTableRecord").html(data.template);
                     }
                 }
             });
@@ -107,9 +105,7 @@
                 data: { uuid : uuid, name: name, rollNo: rollNo, fatherName:fatherName, course:course, stream:stream, address: address},
                 success: function (data) {
                     if (data.code == 200) {
-                        $("#myTable").html(data.template);
-                    } else {
-                        $.notify("Error", "error");
+                        $("#studentTableRecord").html(data.template);
                     }
                 }
             });

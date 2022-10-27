@@ -3,13 +3,13 @@
     <title></title>
     <asset:stylesheet src="style.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+
     <link href="//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400"
           rel="stylesheet"
           type="text/css">
     <asset:javascript src="application.js"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
-
 <table id="myTable">
     <thead>
     <tr>
@@ -25,7 +25,7 @@
     <tbody>
     <g:each in="${studentList}" var="student">
 
-        <tr id="myDiv_${student?.id}">
+        <tr id="myDiv_${student?.uuid}">
 
             <td name="rollNo" id="roll_no_${student?.uuid}">${student?.rollNo}</td>
             <td name="rollNo" id="name_${student?.uuid}">${student?.name}</td>
@@ -34,20 +34,19 @@
             <td name="rollNo" id="stream_${student?.uuid}">${student?.stream}</td>
             <td name="address" id="address_${student?.uuid}">${student?.address}</td>
 
-            <td><button  data-toggle="modal"
+            <td><button id="btn2" data-toggle="modal"
                         data-target="#modal-studentRecord"
                         onclick="autoFillStudentRecord('${student?.uuid}')">Edit</button></td>
-            <td><button  onclick='deleteMe("${student?.uuid}")'>Delete </button></td>
+            <td><button id="btn1"  onclick='deleteMe("${student?.uuid}")'>Delete </button></td>
         </tr>
     </g:each>
 
     </tbody>
 </table>
 </html>
-<g:render template="/libraryManagementSystem/createStudentModal"/>
 <script>
     function deleteMe(uuid) {
-        alert("delete");
+
         $.ajax({
             url: "${createLink(controller:'library',action:'deleteStudentDetails')}",
             method: "POST",
@@ -56,18 +55,12 @@
                 if (data.code == 200) {
                     alert("Success");
                     $("#myTable").html(data.template);
-
-                } //else {
-                   // $.notify("Error", "error");
                 }
-           // }
+            }
         })
     }
 
-
-
     function autoFillStudentRecord(uuid) {
-        alert("Click Me");
 
         var rollNo = $("#roll_no_" + uuid).html();
         var name = $('#name_' + uuid).html();
@@ -75,7 +68,6 @@
         var address = $("#address_" + uuid).html();
         var course = $("#course_" + uuid).html();
         var stream = $("#stream_" + uuid).html();
-
         $("#rollNo").val(rollNo);
         $("#name").val(name);
         $("#fatherName").val(fatherName);
@@ -83,8 +75,6 @@
         $("#stream").val(stream);
         $("#address").val(address);
         $("#isUpdate").val(1);
-
         $("#uuid").val(uuid);
     }
-
 </script>

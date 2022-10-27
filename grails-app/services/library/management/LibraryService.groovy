@@ -26,28 +26,32 @@ class LibraryService {
 
     Boolean update(StudentCO studentCO) {
         Student student = Student.findByUuid(studentCO.uuid)
+        Boolean isUpdate=false
         if (student) {
-
             student.name = studentCO?.name
             student.rollNo = studentCO?.rollNo
             student.fatherName = studentCO?.fatherName
             student.course = studentCO?.course
             student.stream = studentCO?.stream
             student.address = studentCO?.address
+            return student.save()
+            isUpdate=true
         }
-        return student?.save() ? Boolean.TRUE : Boolean.FALSE
+        return  isUpdate
     }
 
     Boolean updateBook(BookCO bookCO){
         Book book = Book.findByUuid(bookCO.uuid)
+        Boolean isUpdate = false
             if (book){
-                book.bookId = bookCO.bookId
                 book.bookName = bookCO.bookName
                 book.publisherName = bookCO.publisherName
-                book.publisherYear = bookCO.publisherYear
+                book.year = bookCO.year
                 book.writterName = bookCO.writterName
-                book.bookPrice = bookCO.bookPrice
+                book.price = bookCO.price
+                return book.save()
+                isUpdate =true
             }
-         return book.save() ? Boolean.TRUE : Boolean.FALSE
+         return isUpdate
     }
 }

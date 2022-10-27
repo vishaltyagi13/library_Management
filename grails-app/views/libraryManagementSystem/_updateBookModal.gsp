@@ -1,6 +1,8 @@
-<div class="modal fade" id="modal-bookRecord" role="dialog">
+<div class="modal fade" id="modal-updateRecord" role="dialog">
     <div class="modal-dialog">
+
         <div class="modal-content">
+
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Book Details</h4>
@@ -10,6 +12,7 @@
                 <div id="bookRecord">
 
                     <g:form  id="bookFormRecord" method="post">
+
                         <div class="form-group">
                             <input type="hidden"  id="uuid" name="uuid"
                                    value="${uuid}">
@@ -43,7 +46,7 @@
                                    value="${price}">
                         </div>
 
-                        <button data-dismiss="modal" onclick="createBook()">Submit</button>
+                        <button data-dismiss="modal" onclick="updateBook()">Submit</button>
                         <button  data-dismiss="modal">Close</button>
                     </g:form>
                 </div>
@@ -54,28 +57,31 @@
 </div>
 
 <script>
-    function createBook() {
+    function updateBook() {
 
-         var bookName = $("#bookName").val();
-        var publisherName= $("#publisherName").val();
-         var year = $("#year").val();
+        var bookName= $("#bookName").val();
+        var  publisherName = $("#publisherName").val();
+        var year = $("#year").val();
         var writterName = $("#writterName").val();
         var price = $("#price").val();
+        var uuid = $("#uuid").val();
         $.ajax({
-            url: "${createLink(controller:'library',action:'createBookDetails')}",
-            method: "POST",
-            data: {
-                 bookName: bookName,
+            url:"${createLink(controller: 'library',action: 'updateBookDetials')}",
+            method:"POST",
+            data:{
+                uuid:uuid,
+                bookName: bookName,
                 publisherName: publisherName,
                 year: year,
                 writterName: writterName,
                 price: price,
             },
-            success: function (data) {
-                if (data.code == 200) {
+            success:function (data) {
+                if (data.code==200){
                     $("#myBook").html(data.template)
                 }
             }
+
         });
     }
 </script>
