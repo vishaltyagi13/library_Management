@@ -13,10 +13,11 @@
 
                     <g:form  id="studentFormRecord" method="post">
                         <div class="form-group">
-                            <label for="rollNo"><g:message code="student.rollNo"/></label>
-                            <input type="text" class="form-control required-field" id="rollNo" name="rollNo"
-                                   value="${rollNo}" required>
+                            <label for="name"><g:message code="student.name"/></label>
+                            <input type="text" class="form-control required-field" id="name" name="name" value="${name}"
+                                   required>
                         </div>
+
                         <div class="form-group">
                             <input type="hidden"  id="uuid" name="uuid"
                                    value="${uuid}" required>
@@ -24,10 +25,9 @@
 
 
                         <div class="form-group">
-                            <label for="name"><g:message code="student.name"/></label>
-                            <input type="text" class="form-control required-field" id="name" name="name" value="${name}"
-                                   required>
-                        </div>
+                            <label for="rollNo"><g:message code="student.rollNo"/></label>
+                        <input type="text" class="form-control required-field" id="rollNo" name="rollNo"
+                               value="${rollNo}" required>
 
                         <div class="form-group">
                             <label for="fatherName"><g:message code="fatherName"/></label>
@@ -36,17 +36,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="course">Choose a course</label>
+                            <label for="course">Choose a Course Name</label>
 
                             <select name="" class="form-control" id="course" name="course" value="${course}" required>
+                                <option disabled selected value> -- Choose a course -- </option>
                                 <option value="b.Tech">b.Tech</option>
                                 <option value="m.Tech">m.tech</option>
                                 <option value="MCA">Mca</option>
                             </select>
                         </div>
                         <div class="form-group">
-                        <label for="stream">Choose a stream</label>
+                        <label for="stream">Choose a Stream Name</label>
                          <select name=""  class="form-control" id="stream" name="stream" value="${stream}" required>
+                             <option disabled selected value> -- Choose a Stream -- </option>
                         <option value="CSE">CSE</option>
                         <option value="ME">ME</option>
                         <option value="EE">EE</option>
@@ -54,6 +56,7 @@
                         <option value="IT">IT</option>
                         <option value="MCA">MCA</option>
                         </select>
+                        </div>
 
                         <div class="form-group">
                             <label for="address"><g:message code="address"/></label>

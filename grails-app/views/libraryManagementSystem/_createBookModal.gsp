@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="publisherName"><g:message code="publisherName"/></label>
+                            <label for="publisherName"><g:message code="publisher.Name"/></label>
                             <input type="text" class="form-control" id="publisherName" name="publisherName" value="${publisherName}">
                         </div>
 
@@ -32,9 +32,15 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="writterName"><g:message code="writterName"/></label>
+                            <label for="writterName"><g:message code="writter.Name"/></label>
                             <input type="text" class="form-control" id="writterName" name="writterName"
                                    value="${writterName}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="totalCount"><g:message code="total.count"/></label>
+                            <input type="text" class="form-control" id="totalCount" name="totalCount"
+                                   value="${totalCount}">
                         </div>
 
                         <div class="form-group">
@@ -60,6 +66,7 @@
         var publisherName= $("#publisherName").val();
          var year = $("#year").val();
         var writterName = $("#writterName").val();
+        var totalCount = $("#totalCount").val();
         var price = $("#price").val();
         $.ajax({
             url: "${createLink(controller:'library',action:'createBookDetails')}",
@@ -69,6 +76,7 @@
                 publisherName: publisherName,
                 year: year,
                 writterName: writterName,
+                totalCount:totalCount,
                 price: price,
             },
             success: function (data) {

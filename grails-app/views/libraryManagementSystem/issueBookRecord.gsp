@@ -31,7 +31,6 @@
     </style>
 
 </head>
-
 <body>
 <div class="header">
     <a href="#default" class="logo">LibraryManagement</a>
@@ -40,7 +39,7 @@
         <a class="active" href="#" data-toggle="modal"
            data-target="#modal-studentRecord">New Student</a>
         <a href="#" data-toggle="modal"
-        data-target="#modal-bookRecord">New Book</a>
+           data-target="#modal-bookRecord">New Book</a>
         <a href="#Detail">Detail</a>
         <a href="#" data-toggle="modal" data-target="#modal-issueBook">Issue Book</a>
         <a href="#Return Book">Return Book</a>
@@ -49,51 +48,14 @@
 </div>
 <g:render template="/libraryManagementSystem/createStudentModal"/>
 <g:render template="/libraryManagementSystem/createBookModal"/>
-<g:render template="/libraryManagementSystem/createIssueBookModal" model="[books:books]"/>
-
-
-
 
 <div id="mySidenav" class="sidenav">
     <a href="${createLink(controller: 'library', action: 'fetchStudentDetails')}" onclick="studentRecords()">Students</a>
-    <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords()">Books</a>
-    <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">Issue Books</a>
-
+    <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords">Books</a>
+    <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">IssueBooks</a>
+</div>
+<div id="issueBookTableRecord">
+    <g:render template="/libraryManagementSystem/issueBookRecordTemplate" model="[issueBookList: issueBookList]"/>
 </div>
 </body>
 </html>
-<script>
-
-    function studentRecords(){
-        $.ajax({
-            url:"${createLink(controller: "library",action: "fetchStudentDetails")}",
-            method:"POST",
-            data:{},
-            success:function (data){
-                if (data.code==200){
-                    $("#myTable").html(data.template);
-                }
-                else{
-                    $.notify("Error","error");
-                }
-            }
-        })
-    }
-
-    function BookRecords(){
-        $.ajax({
-            url:"${createLink(controller: "library",action: "fetchBookDetails")}",
-            method:"POST",
-            data:{},
-            success:function (data){
-                if (data.code==200){
-                    $("#myBook").html(data.template);
-                }
-                else{
-                    $.notify("Error","error");
-                }
-            }
-        })
-    }
-</script>
-

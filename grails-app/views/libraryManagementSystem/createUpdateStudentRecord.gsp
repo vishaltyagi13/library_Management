@@ -48,9 +48,11 @@
 <g:render template="/libraryManagementSystem/createStudentModal"/>
 <g:render template="/libraryManagementSystem/createBookModal"/>
 
+
 <div id="mySidenav" class="sidenav">
-    <a href="${createLink(controller: 'library', action: 'fetchStudentDetails')}" onclick="studentRecords()">students</a>
+    <a href="${createLink(controller: 'library', action: 'fetchStudentDetails')}" onclick="studentRecords()">Students</a>
     <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords">Books</a>
+    <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">Issue Books</a>
 </div>
 
 <div id="studentTableRecord">
@@ -90,5 +92,38 @@
                 }
             }
         })
+    }
+
+    function deleteMe(uuid) {
+
+        $.ajax({
+            url: "${createLink(controller:'library',action:'deleteStudentDetails')}",
+            method: "POST",
+            data: {'uuid':uuid},
+            success: function (data) {
+                if (data.code == 200) {
+                    alert("Success");
+                    $("#studentTableRecord").html(data.template);
+                }
+            }
+        })
+    }
+
+    function autoFillStudentRecord(uuid) {
+
+        var rollNo = $("#roll_no_" + uuid).html();
+        var name = $('#name_' + uuid).html();
+        var fatherName = $("#fatherName_" + uuid).html();
+        var address = $("#address_" + uuid).html();
+        var course = $("#course_" + uuid).html();
+        var stream = $("#stream_" + uuid).html();
+        $("#rollNo").val(rollNo);
+        $("#name").val(name);
+        $("#fatherName").val(fatherName);
+        $("#course").val(course);
+        $("#stream").val(stream);
+        $("#address").val(address);
+        $("#isUpdate").val(1);
+        $("#uuid").val(uuid);
     }
 </script>

@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: vishal
+  Date: 31/10/22
+  Time: 4:03 PM
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -10,6 +17,7 @@
           type="text/css">
     <asset:javascript src="application.js"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
     <style>
     .modal-header, h4, .close {
         background-color: dodgerblue;
@@ -29,71 +37,34 @@
         padding: 2px !important;
     }
     </style>
-
 </head>
-
 <body>
 <div class="header">
     <a href="#default" class="logo">LibraryManagement</a>
-
     <div class="header-right">
         <a class="active" href="#" data-toggle="modal"
            data-target="#modal-studentRecord">New Student</a>
         <a href="#" data-toggle="modal"
-        data-target="#modal-bookRecord">New Book</a>
+           data-target="#modal-bookRecord">New Book</a>
         <a href="#Detail">Detail</a>
-        <a href="#" data-toggle="modal" data-target="#modal-issueBook">Issue Book</a>
+        <a href="#Issue Book">Issue Book</a>
         <a href="#Return Book">Return Book</a>
         <a href="#Logout">Logout</a>
     </div>
 </div>
 <g:render template="/libraryManagementSystem/createStudentModal"/>
-<g:render template="/libraryManagementSystem/createBookModal"/>
-<g:render template="/libraryManagementSystem/createIssueBookModal" model="[books:books]"/>
-
-
-
+<g:render template="/libraryManagementSystem/updateModal"/>
 
 <div id="mySidenav" class="sidenav">
     <a href="${createLink(controller: 'library', action: 'fetchStudentDetails')}" onclick="studentRecords()">Students</a>
-    <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords()">Books</a>
-    <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">Issue Books</a>
-
+    <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords">Books</a>
+    <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">IssueBooks</a>
 </div>
+
+<div id="studentTableRecord">
+    <g:render template="/libraryManagementSystem/bookRecordTemplate" model="[bookList: bookList]"/>
+</div>
+
+</head>
 </body>
 </html>
-<script>
-
-    function studentRecords(){
-        $.ajax({
-            url:"${createLink(controller: "library",action: "fetchStudentDetails")}",
-            method:"POST",
-            data:{},
-            success:function (data){
-                if (data.code==200){
-                    $("#myTable").html(data.template);
-                }
-                else{
-                    $.notify("Error","error");
-                }
-            }
-        })
-    }
-
-    function BookRecords(){
-        $.ajax({
-            url:"${createLink(controller: "library",action: "fetchBookDetails")}",
-            method:"POST",
-            data:{},
-            success:function (data){
-                if (data.code==200){
-                    $("#myBook").html(data.template);
-                }
-                else{
-                    $.notify("Error","error");
-                }
-            }
-        })
-    }
-</script>
-

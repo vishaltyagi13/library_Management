@@ -48,6 +48,7 @@ class LibraryService {
                 book.publisherName = bookCO.publisherName
                 book.year = bookCO.year
                 book.writterName = bookCO.writterName
+                book.totalCount= bookCO.totalCount
                 book.price = bookCO.price
                 return book.save()
                 isUpdate =true

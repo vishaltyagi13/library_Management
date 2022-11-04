@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal-updateRecord" role="dialog">
+<div class="modal fade" id="modal-updateBookRecord" role="dialog">
     <div class="modal-dialog">
 
         <div class="modal-content">
@@ -41,6 +41,13 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="totalCount"><g:message code="total.count"/></label>
+                            <input type="text" class="form-control" id="totalCount" name="totalCount"
+                                   value="${totalCount}">
+                        </div>
+
+
+                        <div class="form-group">
                             <label for="price"><g:message code="book.price"/></label>
                             <input type="text" class="form-control" id="price" name="price"
                                    value="${price}">
@@ -63,6 +70,7 @@
         var  publisherName = $("#publisherName").val();
         var year = $("#year").val();
         var writterName = $("#writterName").val();
+        var totalCount = $("#totalCount").val();
         var price = $("#price").val();
         var uuid = $("#uuid").val();
         $.ajax({
@@ -74,6 +82,7 @@
                 publisherName: publisherName,
                 year: year,
                 writterName: writterName,
+                totalCount:totalCount,
                 price: price,
             },
             success:function (data) {

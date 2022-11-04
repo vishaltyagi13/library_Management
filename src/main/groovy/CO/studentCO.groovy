@@ -5,7 +5,7 @@ import grails.validation.Validateable
 class StudentCO implements Validateable {
 
     String uuid = UUID.randomUUID()
-    Integer rollNo
+    String rollNo
     String name
     String fatherName
     String course

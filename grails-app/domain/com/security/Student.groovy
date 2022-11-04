@@ -5,7 +5,7 @@ import CO.StudentCO
 
 class Student implements Serializable {
     String uuid = UUID.randomUUID()
-    Integer rollNo
+    String rollNo
     String name
     String fatherName
     String course
