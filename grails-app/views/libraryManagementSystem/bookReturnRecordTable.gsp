@@ -48,14 +48,18 @@
 </div>
 <g:render template="/libraryManagementSystem/createStudentModal"/>
 <g:render template="/libraryManagementSystem/createBookModal"/>
+<g:render template="/libraryManagementSystem/updateBookReturnModal" model="[bookList: bookList]"/>
+<div align="left" style="background-color: #dddddd">
+    <h3 style="padding: 5px">ReturnBooks Details</h3></div>
 
 <div id="mySidenav" class="sidenav">
     <a href="${createLink(controller: 'library', action: 'fetchStudentDetails')}" onclick="studentRecords()">Students</a>
-    <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords">Books</a>
+    <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords()">Books</a>
     <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">IssueBooks</a>
 </div>
-<div id="issueBookTableRecord">
-    <g:render template="/libraryManagementSystem/issueBookRecordTemplate" model="[issueBookList: issueBookList]"/>
+<div id="returnBookTableRecord">
+    <g:render template="/libraryManagementSystem/createAndUpdateBookReturnTemplate" model="[bookReturnList: bookReturnList]"/>
+
 </div>
 </body>
 </html>

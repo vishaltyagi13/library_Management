@@ -43,13 +43,14 @@
         data-target="#modal-bookRecord">New Book</a>
         <a href="#Detail">Detail</a>
         <a href="#" data-toggle="modal" data-target="#modal-issueBook">Issue Book</a>
-        <a href="#Return Book">Return Book</a>
+        <a href="#" data-toggle="modal" data-target="#modal-bookReturn">Return Book</a>
         <a href="#Logout">Logout</a>
     </div>
 </div>
 <g:render template="/libraryManagementSystem/createStudentModal"/>
 <g:render template="/libraryManagementSystem/createBookModal"/>
-<g:render template="/libraryManagementSystem/createIssueBookModal" model="[books:books]"/>
+<g:render template="/libraryManagementSystem/createIssueBookModal" model="[availableBookList:availableBookList]"/>
+<g:render template="/libraryManagementSystem/createBookReturnModal" model="[bookList:bookList]"/>
 
 
 
@@ -58,6 +59,8 @@
     <a href="${createLink(controller: 'library', action: 'fetchStudentDetails')}" onclick="studentRecords()">Students</a>
     <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords()">Books</a>
     <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">Issue Books</a>
+    <a href="${createLink(controller: 'library',action: 'fetchBookReturnDetals')}">Return Books</a>
+
 
 </div>
 </body>
@@ -95,5 +98,11 @@
             }
         })
     }
+    // function show() {
+    //     $('#search').click(function() {
+    //         $('#modal-bookReturn').modal('show');
+    //     });
+    //
+    // }
 </script>
 

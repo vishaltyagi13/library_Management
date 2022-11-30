@@ -47,6 +47,7 @@
 </div>
 <g:render template="/libraryManagementSystem/createStudentModal"/>
 <g:render template="/libraryManagementSystem/createBookModal"/>
+<div align="left"  style="background-color: #dddddd"><h3 style="margin-left: 11% " >Students Details</h3>
 
 
 <div id="mySidenav" class="sidenav">

@@ -67,6 +67,8 @@
          var year = $("#year").val();
         var writterName = $("#writterName").val();
         var totalCount = $("#totalCount").val();
+        var availableCount=$("#availableCount").val();
+        var issueCount=$("#issueCount").val();
         var price = $("#price").val();
         $.ajax({
             url: "${createLink(controller:'library',action:'createBookDetails')}",
@@ -77,6 +79,8 @@
                 year: year,
                 writterName: writterName,
                 totalCount:totalCount,
+                availableCount:availableCount,
+                issueCount:issueCount,
                 price: price,
             },
             success: function (data) {

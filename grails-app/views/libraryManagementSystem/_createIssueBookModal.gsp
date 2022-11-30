@@ -14,7 +14,7 @@
 
                         <div class="form-group">
                             <label for="bookId">Select a Book Name</label>
-                            <g:select name="bookId" id="bookId" class="form-control" from="${books}"
+                            <g:select name="bookId" id="bookId" class="form-control" from="${availableBookList}"
                                       optionValue="bookName"
                                       noSelection="['null': '-- Select a Book --']"
                                       optionKey="uuid"/>

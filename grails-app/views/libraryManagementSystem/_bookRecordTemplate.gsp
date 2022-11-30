@@ -29,7 +29,7 @@
             <td name="price" id="price_${book?.uuid}">${book?.price}</td>
             <td name="totalCount" id="total_Count_${book?.uuid}">${book?.totalCount}</td>
             <td name="availableCount" id="available_count_${book?.uuid}">${book?.availableCount}</td>
-            <td style="visibility: hidden" name="issuedCount" id="issued_count_${book?.uuid}"></td>
+            <td name="issueCount" id="issue_count_${book?.uuid}">${book?.issueCount}</td>
             <td><button  data-toggle="modal"
                         data-target="#modal-updateBookRecord" id="btn2"
                          onclick='autoFillBookRecord("${book?.uuid}", "${book?.bookName}","${book?.publisherName}", "${book?.year}", "${book?.writterName}","${book?.totalCount}", "${book?.price}")'>Edit</button>

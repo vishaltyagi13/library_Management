@@ -2,6 +2,7 @@ package com.security
 
 import CO.BookCO
 
+
 class Book implements Serializable {
 
     private static final long serialVersionUID = 2L
@@ -14,11 +15,8 @@ class Book implements Serializable {
     Long year
     Integer totalCount
     Integer availableCount=0
+    Integer issueCount=0
     Integer price
-
-
-//    Date dateCreated
-//    Date lastUpdated
 
     static constraints = {
 
@@ -28,6 +26,7 @@ class Book implements Serializable {
         writterName nullable: false
         year nullable: false
         totalCount nullable: false
+
         price nullable: false
     }
 
@@ -44,6 +43,7 @@ class Book implements Serializable {
 
     def afterInsert() {
         generateIdentityNumber()
+
     }
 
    def generateIdentityNumber() {
