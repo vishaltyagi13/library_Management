@@ -17,6 +17,7 @@ class Book implements Serializable {
     Integer availableCount=0
     Integer issueCount=0
     Integer price
+    Date dateAdded
 
     static constraints = {
 
@@ -26,9 +27,13 @@ class Book implements Serializable {
         writterName nullable: false
         year nullable: false
         totalCount nullable: false
-
         price nullable: false
+        dateAdded nullable: true
     }
+
+    static mapping = {
+        sort issueCount: "desc"}
+
 
     public Book(BookCO bookCO) {
 
@@ -39,6 +44,7 @@ class Book implements Serializable {
         this.year = bookCO.year
         this.totalCount=bookCO.totalCount
         this.price = bookCO.price
+        this.dateAdded=bookCO.dateAdded
     }
 
     def afterInsert() {

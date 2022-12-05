@@ -174,4 +174,11 @@ tr:nth-child(even) {
     background-color: dodgerblue;
     color: white;
 }
+div.ex1 {
+    height: 40px;
+    width: 200px;
+    overflow-y: auto;
+}
+
+
 

@@ -45,12 +45,11 @@ class JobExecutionService {
             bookIssueCO.rollNo = fetchStudentRollNo(bookIssue.studentId)
             bookIssueCO.issueDate = bookIssue.issueDate
             bookIssueCO.dueDate = bookIssue.dueDate
-            bookIssueCO.isActive=bookIssue.isActive
+            bookIssueCO.isActive= bookIssue.isActive
             Integer noOfDays = returnDate - bookIssue.dueDate
             if (noOfDays > 0 && bookIssueCO.isActive ) {
                  fine = noOfDays * perDayCharge
                 bookIssueCO.fine=fine
-                println(bookIssueCO)
             }
             else{
                 fine=0

@@ -59,7 +59,6 @@
 </div>
 <div id="issueBookTableRecord">
     <g:render template="/libraryManagementSystem/issueBookRecordTable" model="[bookIssueList: bookIssueList]"/>
-
 </div>
 </body>
 </html>

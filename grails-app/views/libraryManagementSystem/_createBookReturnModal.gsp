@@ -27,13 +27,13 @@
 
                         <button id="searchBtnId" >search</button>
 
-                        <div class="form-group">
+                        <div id="fn" hidden class="form-group">
                             <label for="issueDate"><g:message code="issue.Date"/></label>
                             <input type="text"  class="form-control first" id="issueDate" name="issueDate"
                                    value="${issueDate}" readonly>
                         </div>
 
-                        <div class="form-group">
+                        <div id="ln" hidden class="form-group">
                             <label for="dueDate"><g:message code="due.Date"/></label>
                             <input type="text" class="form-control" id="dueDate" name="dueDate"
                                    value="${dueDate}" readonly>
@@ -58,11 +58,15 @@
             method: "GET",
             data: data,
             success: function (data) {
-                console.log( document.getElementById('issueDate').innerHTML);
                 document.getElementById('issueDate').value=data.issueDate;
                 document.getElementById('dueDate').value=data.dueDate;
             }
         })
+    });
+
+    $("#searchBtnId").click(function() {
+        $("#fn").show();
+        $("#ln").show();
     });
 
     function createReturnBook() {

@@ -18,7 +18,10 @@ class LibraryController {
     def view(){
         List<Book>availableBookList=libraryService.availableBooks()
         List<Book> bookList=Book.list()
-        render view: '/libraryManagementSystem/dashboard', model: [availableBookList: availableBookList,bookList: bookList]
+        List<Book> listOfBooks = libraryService.fetchIssueCount()
+        List<Book> newBooks=libraryService.newBook()
+        List<Book> newRecentBooks=libraryService.recentAddedBooks()
+        render view: '/libraryManagementSystem/dashboard', model: [availableBookList: availableBookList,bookList: bookList,'listOfBooks': listOfBooks,'newBook':newBooks,'newRecentBooks':newRecentBooks]
     }
 
     def fetchStudentDetails() {
@@ -84,6 +87,7 @@ class LibraryController {
     }
 
     def createBookDetails(BookCO bookCO) {
+        bookCO.dateAdded=new Date()
         Map result = [:]
         Book book = new Book(bookCO)
             book.save(flush: true)
@@ -132,7 +136,7 @@ class LibraryController {
        List<BookIssueCO> bookIssueList= jobExecutionService.calculateFine()
         List<Book>availableBookList=Book.list()
 
-        render(view: '/libraryManagementSystem/issueBookRecordTable', model: ['bookIssueList':bookIssueList, availableBookList: availableBookList])
+        render(view: '/libraryManagementSystem/issueBookRecord', model: ['bookIssueList':bookIssueList, availableBookList: availableBookList])
 
     }
 
@@ -143,7 +147,7 @@ class LibraryController {
         String name=libraryService.insertAvailibiltyAndIssueCounts()
         result.code = 200
         result.status = "Success"
-        render(template: '/libraryManagementSystem/issueBookRecordTable', model: ['issueBookList': issueBook.list()])
+        render(template: '/libraryManagementSystem/issueBookRecordTable', model: ['bookIssueList': issueBook.list()])
     }
 
     def updateIssueBookDetails(){
@@ -162,7 +166,7 @@ class LibraryController {
                 result.status = "Record not found"
             }
         }
-        render template: '/libraryManagementSystem/issueBookRecordTable', model: ['issueBookList':bookIssueCO ]
+        render template: '/libraryManagementSystem/issueBookRecordTable', model: ['bookIssueList':bookIssueCO ]
     }
 
     def deleteIssueBookDetails(){
@@ -180,7 +184,7 @@ class LibraryController {
                 result.message = "record not found"
             }
         }
-        render(template: '/libraryManagementSystem/issueBookRecordTable', model: ['issueBookList': BookIssue.list()])
+        render(template: '/libraryManagementSystem/issueBookRecordTable', model: ['bookIssueList': BookIssue.list()])
     }
 
     def bookIssue(Integer availableCount){
@@ -214,7 +218,7 @@ class LibraryController {
         bookReturn.save()
         result.code=200
         result.status="Success"
-        render template: '/libraryManagementSystem/createAndUpdateBookReturnTemplate', model: [bookReturnList: bookReturn.list()]
+        render template: '/libraryManagementSystem/BookReturnRecordTable', model: [bookReturnList: bookReturn.list()]
     }
 
     def updateBookReturnDetails() {
@@ -232,7 +236,7 @@ class LibraryController {
                 result.status = "Record not found"
             }
         }
-        render template: '/libraryManagementSystem/createAndUpdateBookReturnTemplate',model: [bookReturnList: bookReturnCO]
+        render template: '/libraryManagementSystem/BookReturnRecordTable',model: [bookReturnList: bookReturnCO]
     }
 
     def deleteBookReturnDetails(){

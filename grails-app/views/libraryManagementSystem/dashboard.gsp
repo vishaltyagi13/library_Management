@@ -52,17 +52,28 @@
 <g:render template="/libraryManagementSystem/createIssueBookModal" model="[availableBookList:availableBookList]"/>
 <g:render template="/libraryManagementSystem/createBookReturnModal" model="[bookList:bookList]"/>
 
-
-
-
 <div id="mySidenav" class="sidenav">
     <a href="${createLink(controller: 'library', action: 'fetchStudentDetails')}" onclick="studentRecords()">Students</a>
     <a href="${createLink(controller: 'library',action: 'fetchBookDetails')}" onclick="BookRecords()">Books</a>
     <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">Issue Books</a>
     <a href="${createLink(controller: 'library',action: 'fetchBookReturnDetals')}">Return Books</a>
-
-
 </div>
+
+<div class="ex1" style="background-color:dodgerblue; color:white;padding:20px; margin-left: 11%; margin-right: 60%;  height: 45%; width: 45%;">
+    <h2>Most Popular Writter</h2>
+    <g:render template="/libraryManagementSystem/popularWritterRecordTable" model="['newBook': newBook]"/>
+</div>
+
+<div class="ex1"  style="background-color:dodgerblue; margin-top: 3px; color:white; margin-left: 11%; margin-right: 60%;  height: 45%; width: 45%;">
+    <h2>Most Popular Books</h2>
+   <g:render template="/libraryManagementSystem/blockRecordBookTable" model="['listOfBooks': listOfBooks]"/>
+</div>
+
+<div class="ex1"  style="background-color:dodgerblue; margin-top: 3px; color:white; margin-left: 11%; margin-right: 60%;  height: 45%; width: 45%;">
+    <h2>Recent Books</h2>
+    <g:render template="/libraryManagementSystem/recentBookRecordTable" model="['newRecentBooks': newRecentBooks]"/>
+</div>
+
 </body>
 </html>
 <script>
@@ -98,11 +109,4 @@
             }
         })
     }
-    // function show() {
-    //     $('#search').click(function() {
-    //         $('#modal-bookReturn').modal('show');
-    //     });
-    //
-    // }
 </script>
-

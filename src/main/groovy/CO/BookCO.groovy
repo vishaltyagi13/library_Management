@@ -11,6 +11,7 @@ class BookCO implements Validateable {
     Long year
     Integer totalCount
     Integer price
+    Date dateAdded
 
     static constraints ={
 

@@ -65,7 +65,7 @@ class LibraryService {
         String name = Book.createCriteria().get {
             eq('id', bookId)
             projections {
-                property ("bookName")
+                property("bookName")
             }
             maxResults(1)
         }
@@ -73,37 +73,37 @@ class LibraryService {
     }
 
     static String fetchStudentRollNo(Long studentId) {
-        return  Student.createCriteria().get {
-            eq('id',studentId)
-            projections{
+        return Student.createCriteria().get {
+            eq('id', studentId)
+            projections {
                 property('rollNo')
             }
             maxResults(1)
         }
     }
 
-    String fetchBookUuid(Long bookId){
-        String bookUid=Book.createCriteria().get {
-            eq('id',bookId)
-            projections{
+    String fetchBookUuid(Long bookId) {
+        String bookUid = Book.createCriteria().get {
+            eq('id', bookId)
+            projections {
                 property("uuid")
             }
             maxResults(1)
         }
-        return  bookUid
+        return bookUid
     }
 
     List<BookIssueCO> fetchBookIssueDetails() {
 
         List<BookIssueCO> bookIssueCOList = []
         List<BookIssue> bookIssueList = BookIssue.list()
-        for (BookIssue bookIssue :bookIssueList) {
+        for (BookIssue bookIssue : bookIssueList) {
             BookIssueCO bookIssueCO = new BookIssueCO()
             bookIssueCO.bookName = fetchBookName(bookIssue.bookId)
-            bookIssueCO.bookId= fetchBookUuid(bookIssue.bookId)
-            bookIssueCO.rollNo=fetchStudentRollNo(bookIssue.studentId)
-            bookIssueCO.issueDate=bookIssue.issueDate
-            bookIssueCO.dueDate=bookIssue.dueDate
+            bookIssueCO.bookId = fetchBookUuid(bookIssue.bookId)
+            bookIssueCO.rollNo = fetchStudentRollNo(bookIssue.studentId)
+            bookIssueCO.issueDate = bookIssue.issueDate
+            bookIssueCO.dueDate = bookIssue.dueDate
             bookIssueCOList.add(bookIssueCO)
         }
         println(bookIssueCOList)
@@ -112,44 +112,46 @@ class LibraryService {
 
     Boolean updateBookIssue(BookIssueCO bookIssueCO) {
 
-      BookIssue bookIssue= BookIssue.findByUuid(bookIssueCO.uuid)
+        BookIssue bookIssue = BookIssue.findByUuid(bookIssueCO.uuid)
         Boolean isUpdate = false
         if (bookIssue) {
-            bookIssue.bookId =bookIssueCO ?.bookId
+            bookIssue.bookId = bookIssueCO?.bookId
             bookIssue.studentId = bookIssueCO?.rollNo
-           bookIssue.issueDate = DateUtil.stringToDate(bookIssueCO?.issueDate)
-            bookIssue.dueDate=DateUtil.stringToDate(bookIssueCO?.dueDate)
+            bookIssue.issueDate = DateUtil.stringToDate(bookIssueCO?.issueDate)
+            bookIssue.dueDate = DateUtil.stringToDate(bookIssueCO?.dueDate)
             return bookIssue.save()
             isUpdate = true
         }
         return isUpdate
     }
-    String  insertAvailibiltyAndIssueCounts(){
-        List<Book>bookList=Book.list()
-        for (Book book:bookList){
-            Integer totalBookCount=book.totalCount
-            Integer issueBookCount=BookIssue.countByBookIdAndIsActive(book.id,Boolean.TRUE)
-            Integer availableBookCount=totalBookCount-issueBookCount
-            book.totalCount=totalBookCount
-            book.issueCount=issueBookCount
-            book.availableCount=availableBookCount
+
+    String insertAvailibiltyAndIssueCounts() {
+        List<Book> bookList = Book.list()
+        for (Book book : bookList) {
+            Integer totalBookCount = book.totalCount
+            Integer issueBookCount = BookIssue.countByBookId(book.id)
+
+            Integer availableBookCount = totalBookCount - issueBookCount
+            book.totalCount = totalBookCount
+            book.issueCount = issueBookCount
+            book.availableCount = availableBookCount
             book.save()
         }
     }
 
-    List<Book> availableBooks(){
-        List<Book> availableBookList=Book.createCriteria().list {
-            ne('availableCount',0)
-        }?:[]
+    List<Book> availableBooks() {
+        List<Book> availableBookList = Book.createCriteria().list {
+            ne('availableCount', 0)
+        } ?: []
         return availableBookList
     }
 
-    Map<String,Date> fetchIssueAndDueDate(Long bookId, Long studentId){
-        Map map=[:]
-        List<Date> list= BookIssue.createCriteria().get {
-            'eq'('bookId',bookId)
-            'eq'('studentId',studentId)
-            projections{
+    Map<String, Date> fetchIssueAndDueDate(Long bookId, Long studentId) {
+        Map map = [:]
+        List<Date> list = BookIssue.createCriteria().get {
+            'eq'('bookId', bookId)
+            'eq'('studentId', studentId)
+            projections {
                 property("issueDate")
                 property("dueDate")
             }
@@ -157,18 +159,18 @@ class LibraryService {
         }
         println(list)
         map.put('issueDate', DateUtil.dateToString(list?.get(0)))
-        map.put('dueDate',   DateUtil.dateToString(list?.get(1)))
+        map.put('dueDate', DateUtil.dateToString(list?.get(1)))
         return map
     }
 
     Boolean updateReturnBook(BookReturnDetailsCO bookReturnCO) {
-        BookReturn bookReturn= BookReturn.findByUuid(bookReturnCO.uuid)
+        BookReturn bookReturn = BookReturn.findByUuid(bookReturnCO.uuid)
         Boolean isUpdate = false
         if (bookReturn) {
             bookReturn.bookId = Book.findByUuid(bookReturnCO.bookName)?.id
             bookReturn.studentId = Student.findByRollNo(bookReturnCO.rollNo)?.id
-            bookReturn.issueDate =DateUtil.stringToDate(bookReturnCO?.issueDate)
-            bookReturn.dueDate=DateUtil.stringToDate(bookReturnCO?.dueDate)
+            bookReturn.issueDate = DateUtil.stringToDate(bookReturnCO?.issueDate)
+            bookReturn.dueDate = DateUtil.stringToDate(bookReturnCO?.dueDate)
             return bookReturn.save()
             isUpdate = true
         }
@@ -176,34 +178,56 @@ class LibraryService {
     }
 
     List<BookReturnDetailsCO> fetchBookReturn() {
-
         List<BookReturnDetailsCO> bookReturnCOList = []
         List<BookReturn> bookReturnList = BookReturn.list()
-        for (BookReturn bookReturn :bookReturnList) {
+        for (BookReturn bookReturn : bookReturnList) {
             BookReturnDetailsCO bookReturnDetailsCO = new BookReturnDetailsCO()
             bookReturnDetailsCO.bookName = fetchBookName(bookReturn.bookId)
-            bookReturnDetailsCO.rollNo=fetchStudentRollNo(bookReturn.studentId)
-            bookReturnDetailsCO.issueDate=bookReturn.issueDate
-            bookReturnDetailsCO.dueDate=bookReturn.dueDate
-            bookReturnDetailsCO.uuid=bookReturn.uuid
+            bookReturnDetailsCO.rollNo = fetchStudentRollNo(bookReturn.studentId)
+            bookReturnDetailsCO.issueDate = bookReturn.issueDate
+            bookReturnDetailsCO.dueDate = bookReturn.dueDate
+            bookReturnDetailsCO.uuid = bookReturn.uuid
             bookReturnCOList.add(bookReturnDetailsCO)
         }
         return bookReturnCOList
     }
-     def migrateIsActive(){
-    List<BookIssue>bookIssueList=BookIssue.findAll()
-    for (BookIssue bookIssue:bookIssueList){
-        bookIssue.isActive=Boolean.TRUE
-        bookIssue.save()
-    }
-     }
 
-     void updateIsActive(Long bookId,Long studentId){
-           BookIssue bookIssue=BookIssue.findByBookIdAndStudentId(bookId,studentId)
-         if (bookIssue){
-             bookIssue.isActive=Boolean.FALSE
-             println(bookIssue)
-             bookIssue.save()
-         }
+    def migrateIsActive() {
+        List<BookIssue> bookIssueList = BookIssue.findAll()
+        for (BookIssue bookIssue : bookIssueList) {
+            bookIssue.isActive = Boolean.TRUE
+            bookIssue.save()
+        }
+    }
+
+    void updateIsActive(Long bookId, Long studentId) {
+        BookIssue bookIssue = BookIssue.findByBookIdAndStudentId(bookId, studentId)
+        if (bookIssue) {
+            bookIssue.isActive = Boolean.FALSE
+            bookIssue.save()
+        }
+    }
+
+    def fetchIssueCount() {
+        List<Book> book = Book.list([sort: 'issueCount', order: 'desc', offset: 0, max: 10])
+        return book
+    }
+
+    def newBook() {
+        List<Book> books = Book.list()
+        for (Book book : books) {
+            for (int i = 0; i < books.size(); i++) {
+                List<String> famousBook = Book.list([sort: 'totalCount', order: 'desc', offset: 0, max: 10])
+                return famousBook
+            }
+        }
+    }
+
+    def recentAddedBooks(){
+       List<Book>newBook=Book.list()
+        for (Book book:newBook){
+            List<String>recentBooks=Book.list([sort: 'dateAdded', order: 'desc', offset: 0, max: 10])
+            return  recentBooks
+        }
     }
 }

@@ -58,7 +58,7 @@
     <a href="${createLink(controller: 'library',action: 'fetchIssueBookDetails')}">IssueBooks</a>
 </div>
 <div id="returnBookTableRecord">
-    <g:render template="/libraryManagementSystem/createAndUpdateBookReturnTemplate" model="[bookReturnList: bookReturnList]"/>
+    <g:render template="/libraryManagementSystem/BookReturnRecordTable" model="[bookReturnList: bookReturnList]"/>
 
 </div>
 </body>

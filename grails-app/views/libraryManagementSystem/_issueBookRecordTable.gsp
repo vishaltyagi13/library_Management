@@ -74,7 +74,7 @@
             success: function (data) {
                 if (data.code == 200) {
                     alert("Success");
-                    $("#issueBookTableRecord").html(data.template);
+                    $("#issueBook").html(data.template);
                 }
             }
         })
