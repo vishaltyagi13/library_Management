@@ -12,7 +12,7 @@ class JobExcecutionController {
 
     def index(){
        // String bookName
-        libraryService.recentAddedBooks()
+        libraryService.fine()
         render "ok"
     }
 

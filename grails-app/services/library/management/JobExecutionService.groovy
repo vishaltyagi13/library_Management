@@ -57,6 +57,7 @@ class JobExecutionService {
             }
             bookIssueCOList.add(bookIssueCO)
         }
+
         return bookIssueCOList
     }
 }

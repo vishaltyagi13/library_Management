@@ -11,6 +11,7 @@ class BookIssue implements Serializable {
     Long studentId
     Date issueDate
     Date dueDate
+
     Boolean isActive=Boolean.TRUE
 
     static constraints = {
@@ -19,6 +20,7 @@ class BookIssue implements Serializable {
         studentId nullable: false
         issueDate nullable: false
         dueDate nullable: false
+
     }
 
     public BookIssue(BookIssueCO bookIssueCO) {
@@ -26,5 +28,6 @@ class BookIssue implements Serializable {
         this.studentId = Student.findByRollNo(bookIssueCO.rollNo)?.id
         this.dueDate = DateUtil.stringToDate(bookIssueCO.dueDate)
         this.issueDate = DateUtil.stringToDate(bookIssueCO.issueDate)
+
     }
 }

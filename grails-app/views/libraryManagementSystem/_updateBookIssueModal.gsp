@@ -28,13 +28,13 @@
 
                         <div class="form-group">
                             <label for="issueDate"><g:message code="issue.Date"/></label>
-                            <input type="text" class="form-control" id="issueDate" name="issueDate"
+                            <input type="datetime-local" class="form-control" id="issueDate" name="issueDate"
                                    required>
                         </div>
 
                         <div class="form-group">
                             <label for="dueDate"><g:message code="due.Date"/></label>
-                            <input type="text" class="form-control" id="dueDate" name="dueDate">
+                            <input type="datetime-local" class="form-control" id="dueDate" name="dueDate">
 
                         </div>
 

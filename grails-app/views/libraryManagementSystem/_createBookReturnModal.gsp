@@ -25,7 +25,7 @@
                                    required>
                         </div>
 
-                        <button id="searchBtnId" >search</button>
+                        <button class="btn" id="searchBtnId" >search</button>
 
                         <div id="fn" hidden class="form-group">
                             <label for="issueDate"><g:message code="issue.Date"/></label>
@@ -37,6 +37,12 @@
                             <label for="dueDate"><g:message code="due.Date"/></label>
                             <input type="text" class="form-control" id="dueDate" name="dueDate"
                                    value="${dueDate}" readonly>
+                        </div>
+
+                        <div id="bookFine"  hidden class="form-group">
+                            <label for="fine" ><g:message code="book.fine"/></label>
+                            <input type="text" style="border-color: red" class="form-control" id="fine" name="fine"
+                                   value="${fine}" readonly>
                         </div>
 
                         <button data-dismiss="modal" onclick="createReturnBook()">Return</button>
@@ -58,8 +64,12 @@
             method: "GET",
             data: data,
             success: function (data) {
-                document.getElementById('issueDate').value=data.issueDate;
-                document.getElementById('dueDate').value=data.dueDate;
+                console.log(data);
+                // document.getElementById('issueDate').value=data.issueDate;
+                // document.getElementById('dueDate').value=data.dueDate;
+                $("#issueDate").val(data.issueDate);
+                $("#dueDate").val(data.dueDate);
+                 $("#fine").val(data.fineDetails.fine);
             }
         })
     });
@@ -67,6 +77,7 @@
     $("#searchBtnId").click(function() {
         $("#fn").show();
         $("#ln").show();
+        $("#bookFine").show();
     });
 
     function createReturnBook() {

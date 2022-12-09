@@ -1,7 +1,7 @@
 <html>
 <head>
     <title></title>
-    <div>
+    <div style="margin-left: 11%">
 <table id="myBook" >
     <thead>
     <tr>

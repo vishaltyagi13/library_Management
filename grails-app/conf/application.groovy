@@ -37,6 +37,7 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 ]
 grails.plugin.springsecurity.rejectIfNoRule = false
 grails.plugin.springsecurity.fii.rejectPublicInvocations = false
+grails.plugin.springsecurity.logout.postOnly = false
 grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
 grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/library/view'
 

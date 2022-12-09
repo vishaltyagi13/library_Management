@@ -17,10 +17,11 @@ import util.DateUtil
 @Transactional
 class LibraryService {
 
+    JobExecutionService jobExecutionService
     def createAndAssignUseRoleDetails() {
-        User user = new User(username: "admin@perfios.com", password: "admin@123")
+        User user = new User(username: "vishal@perfios.com", password: "vishal@123")
         user.save()
-        Role role = new Role(authority: "ROLE_ADMIN")
+        Role role = new Role(authority: "ROLE_USER")
         role.save()
         UserRole userRole = new UserRole()
         userRole.user = user
@@ -148,6 +149,7 @@ class LibraryService {
 
     Map<String, Date> fetchIssueAndDueDate(Long bookId, Long studentId) {
         Map map = [:]
+        BookIssueCO bookIssueCO=new BookIssueCO()
         List<Date> list = BookIssue.createCriteria().get {
             'eq'('bookId', bookId)
             'eq'('studentId', studentId)
@@ -160,7 +162,25 @@ class LibraryService {
         println(list)
         map.put('issueDate', DateUtil.dateToString(list?.get(0)))
         map.put('dueDate', DateUtil.dateToString(list?.get(1)))
+        map.put('fineDetails',fine(bookId,studentId))
         return map
+    }
+
+    def fine(Long bookId,Long studentId){
+        Integer perDayCharge=10
+        Integer fine=0
+        Date returnDate=new Date()
+       BookIssue bookIssue = BookIssue.findByBookIdAndStudentId(bookId,studentId)
+        BookIssueCO bookIssueCO=new BookIssueCO()
+        bookIssueCO.issueDate=bookIssue.issueDate
+        bookIssueCO.dueDate=bookIssue.dueDate
+        Integer noOfDays = returnDate - bookIssue.dueDate
+        if (noOfDays > 0) {
+            fine += noOfDays * perDayCharge
+            bookIssueCO.fine=fine
+            println(fine)
+        }
+        return bookIssueCO
     }
 
     Boolean updateReturnBook(BookReturnDetailsCO bookReturnCO) {
@@ -208,26 +228,18 @@ class LibraryService {
         }
     }
 
-    def fetchIssueCount() {
+    def fetchMostPopularBooksDetail() {
         List<Book> book = Book.list([sort: 'issueCount', order: 'desc', offset: 0, max: 10])
         return book
     }
 
-    def newBook() {
-        List<Book> books = Book.list()
-        for (Book book : books) {
-            for (int i = 0; i < books.size(); i++) {
-                List<String> famousBook = Book.list([sort: 'totalCount', order: 'desc', offset: 0, max: 10])
-                return famousBook
-            }
-        }
+    def fetchMostPopularWritterBooksDetail() {
+        List<Book> famousBook = Book.list([sort: 'totalCount', order: 'desc', offset: 0, max: 10])
+        return  famousBook
     }
 
-    def recentAddedBooks(){
-       List<Book>newBook=Book.list()
-        for (Book book:newBook){
-            List<String>recentBooks=Book.list([sort: 'dateAdded', order: 'desc', offset: 0, max: 10])
+    def fetchRecentAddedBooksDetail(){
+        List<Book>recentBooks=Book.list([sort: 'dateAdded', order: 'desc', offset: 0, max: 10])
             return  recentBooks
         }
-    }
 }

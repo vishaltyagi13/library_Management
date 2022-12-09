@@ -4,7 +4,7 @@ import library.management.LibraryService
 class BootStrap {
     LibraryService libraryService
     def init = { servletContext ->
-        //  libraryService.createAndAssignUseRoleDetails()
+         // libraryService.createAndAssignUseRoleDetails()
 //        List<BookIssue>bookIssueList=BookIssue.findAll()
 //          for (BookIssue bookIssue:bookIssueList){
 //              println(bookIssue.uuid)
