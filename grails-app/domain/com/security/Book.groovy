@@ -22,7 +22,7 @@ class Book implements Serializable {
     static constraints = {
 
         identityNumber nullable: true
-        bookName nullable: false , unique: true
+        bookName nullable: false
         publisherName nullable: false
         writterName nullable: false
         year nullable: false

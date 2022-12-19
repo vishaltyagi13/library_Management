@@ -45,7 +45,6 @@
 <body>
 <div class="header">
     <a href="#default" class="logo">LibraryManagement</a>
-
     <div class="header-right">
         <a class="active" href="#" data-toggle="modal"
            data-target="#modal-studentRecord">New Student</a>
@@ -57,7 +56,8 @@
         <a  href="${createLink(controller: 'logout', action: 'index')}">Logout</a>
     </div>
 </div>
-<g:render template="/libraryManagementSystem/createStudentModal"/>
+%{--<g:render template="/libraryManagementSystem/createStudentModal"/>--}%
+
 <g:render template="/libraryManagementSystem/createBookModal"/>
 <g:render template="/libraryManagementSystem/createIssueBookModal" model="[availableBookList:availableBookList]"/>
 <g:render template="/libraryManagementSystem/createBookReturnModal" model="[bookList:bookList]"/>

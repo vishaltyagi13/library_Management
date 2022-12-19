@@ -18,7 +18,19 @@ class BookIssueCO implements Validateable {
 
     static constraints={
          uuid nullable:true
-        bookName nullable: true
+        bookName (nullable: true , validator: { value , object ->
+            if (!value){
+              println("")
+              println("")
+              println("")
+              println("")
+              println("value of bookName :" + value)
+                println("")
+                println("")
+                println("")
+                println("in if part: " )
+            }
+        })
         bookId nullable:false
         rollNo nullable:false
         issueDate nullable:false

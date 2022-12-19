@@ -36,14 +36,66 @@ class LibraryController {
 
     def createStudentDetails(StudentCO studentCO) {
         Map result = [:]
-        Student student = new Student(studentCO)
-        if (studentCO.validate()) {
-            student.save()
-            result.code = 200
-            result.status = "Saved"
-            result.template = g.render(template: '/libraryManagementSystem/studentRecordTemplate', model: [studentList: Student.list()])
-            result as JSON
+        Boolean isValidated = studentCO.validate()
+        println ""
+        println ""
+        println ""
+        println "isValidated    " + isValidated
+        println ""
+        println ""
+        println ""
+        println(" name value :" + studentCO.name)
+        println " "
+        println " "
+        println " "
+        println " "
+        println " "
+        println " "
+        studentCO.errors.each {
+            println(it)
         }
+        if (isValidated) {
+            println "in if Part "
+            println "    "
+            println "    "
+            println "    "
+            println " value of name : " + studentCO.name
+            println "    "
+            println "    "
+            println "value: " + isValidated
+            result.code = "200"
+            result.message = "Saved"
+            Student student = new Student(studentCO)
+            student.save()
+            println ""
+            println ""
+            println ""
+            println ""
+            println ""
+            println ""
+            println ""
+            result.template = g.render(template: '/libraryManagementSystem/studentRecordTemplate', model: [studentList: Student.list()])
+        } else {
+            result.code = "402"
+            result.message = "Validation Errors"
+            println "in else part"
+            println ""
+            println ""
+            println ""
+            println "value of isValidated in else part: " + isValidated
+            println ""
+            println ""
+            println ""
+            println ""
+            println " name value in else part :" + studentCO.name
+            println ""
+            println ""
+            println ""
+            println ""
+            println ""
+            result.template = g.render(template: '/libraryManagementSystem/studentRegisterFormTemplate', model: [studentCO: studentCO])
+        }
+        render result as JSON
     }
 
     def updateStudentDetails() {
@@ -91,17 +143,69 @@ class LibraryController {
     }
 
     def createBookDetails(BookCO bookCO) {
-        bookCO.dateAdded = new Date()
         Map result = [:]
-        Book book = new Book(bookCO)
-        if (bookCO.validate()){
-            book.save(flush: true)
-            result.code = 200
-            result.status = "Success"
-            render template: '/libraryManagementSystem/bookRecordTemplate', model: ['bookList': book.list()]
-            result as JSON
+        Boolean isValidated = bookCO.validate()
+        println ""
+        println ""
+        println ""
+        println "isValidated    " + isValidated
+        println ""
+        println ""
+        println ""
+        println(" name value :" + bookCO.bookName)
+        println " "
+        println " "
+        println " "
+        println " "
+        println " "
+        println " "
+        bookCO.errors.each {
+            println(it)
         }
+        if (isValidated) {
+            println "in if Part "
+            println "    "
+            println "    "
+            println "    "
+            println " value of name : " + bookCO.bookName
+            println "    "
+            println "    "
+            println "value: " + isValidated
+            result.code = "200"
+            result.message = "Saved"
+            Book book = new Book(bookCO)
+            book.save()
+            println ""
+            println ""
+            println ""
+            println ""
+            println ""
+            println ""
+            println ""
+            result.template = g.render(template: '/libraryManagementSystem/bookRecordTemplate',model: ['bookList': book.list()])
+        } else {
+            result.code = "402"
+            result.message = "Validation Errors"
+            println "in else part"
+            println ""
+            println ""
+            println ""
+            println "value of isValidated in else part: " + isValidated
+            println ""
+            println ""
+            println ""
+            println ""
+            println " name value in else part :" + bookCO.bookName
+            println ""
+            println ""
+            println ""
+            println ""
+            println ""
+            result.template = g.render(template: '/libraryManagementSystem/bookRegisterFormTemplate',model: ['bookCO':bookCO])
+        }
+        render result as JSON
     }
+
 
     def updateBookDetials() {
         Map result = [:]
@@ -273,7 +377,7 @@ class LibraryController {
 
                 result.code = 404
                 result.error = true
-                result.message = "Invalid credentials"
+                result.message = "Invalid Username and Password"
             }
         }
         render result as JSON

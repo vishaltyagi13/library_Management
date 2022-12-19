@@ -32,14 +32,4 @@ class Student implements Serializable {
         this.stream = studentCO.stream
         this.address = studentCO.address
     }
-
-//    static String fetchStudentRollNo(Long studentId) {
-//        return  Student.createCriteria().get {
-//            eq('id',studentId)
-//            projections{
-//                property('rollNo')
-//            }
-//            maxResults(1)
-//        }
-//    }
 }

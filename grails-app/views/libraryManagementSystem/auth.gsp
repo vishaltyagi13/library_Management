@@ -5,30 +5,24 @@
     <asset:stylesheet src="style.css"/>
     <asset:javascript src="application.js"/>
     <asset:javascript src="jquery-2.1.3.js"/>
-%{--    <link href="jquery.alert.css" rel="stylesheet" />--}%
-%{--    <script src="/path/to/cdn/jquery.min.js"></script>--}%
-%{--    <script src="jquery.alert.min.js"></script>--}%
-
 </head>
-
 <body>
-<div class="form">
+<div >
     <form action="${'/library/view'}" method="POST" id="loginForm">
         <center><h1>Login</h1></center>
         <hr/>
-
         <div class="container">
-            <h3 id="invalid" style="color: red; display: none; ">Invalid Credentials</h3>
+            <div id="errorMessageBox">
+
+            </div>
+%{--            <h3 id="invalid" style="color: red; display: none; ">Invalid Username and Password</h3>--}%
             <label>Username</label>
             <input type="text" placeholder="Enter Username" id="username" name="username"  required>
             <label>Password</label>
             <input type="password" placeholder="Enter Password" id="password" name="password"  required>
-%{--            <button type="submit" onclick="$('#loginForm').submit();">Login</button>--}%
             <button type="button"  onclick="submitLoginForm()">Login</button>
-%{--            <h3 id="invalid" style="color: red; display: none; ">Invalid Credentials</h3>--}%
         </div>
     </form>
-
 </div>
 </body>
 </html>
@@ -48,9 +42,10 @@
                if (data.code==200) {
                    $("#loginForm").submit();
                }else {
-                   document.getElementById("invalid").style.display="block";
-                   document.getElementById("username").value="";
-                   document.getElementById("password").value="";
+                   // document.getElementById("invalid").style.display="block";
+                   // document.getElementById("username").value="";
+                   // document.getElementById("password").value="";
+                   $("#errorMessageBox").html(data.message);
                }
            }
        })

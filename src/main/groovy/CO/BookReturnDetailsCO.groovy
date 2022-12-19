@@ -12,7 +12,9 @@ class BookReturnDetailsCO implements Validateable {
     String dueDate
 
     static constraints={
-        bookId nullable: false
+        bookId (nullable: false , validator: { value,object ->
+
+        })
         rollNo nullable: false
         issueDate nullable: false
         dueDate nullable: false
